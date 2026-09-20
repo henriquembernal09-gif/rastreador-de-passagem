@@ -8,8 +8,8 @@
 3. Nenhum dos dois -> so avisa. O relatorio segue salvo em ultimo_parecer.html.
 
 Boletim nao e' alerta. A coleta roda a cada 20-40 min para nao perder uma queda
-brusca, mas isso nao e' motivo para 70 e-mails por dia -- em 06/09/2026 foram
-15 boletins em tres horas e a caixa do Dr. Henrique e do Breno virou ruido.
+brusca, mas isso nao e' motivo para 70 e-mails por dia -- num teste real foram
+15 boletins em tres horas, e o efeito foi a pessoa parar de abrir os e-mails.
 Desde entao o e-mail so' sai nos horarios de `boletim.horarios` do config.json.
 O alerta de queda (alertar.py + canal.py) continua saindo na hora, sempre.
 
