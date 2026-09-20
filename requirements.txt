@@ -1,0 +1,5 @@
+playwright>=1.40
+# Fixo em 2.2 de proposito: a 3.x renomeou FlightData -> FlightQuery e o
+# `from fast_flights import FlightData` do coletar.py para de importar.
+# Quem for soltar esse teto tem que ajustar o build_url junto.
+fast-flights==2.2

@@ -1,0 +1,17 @@
+# Nada do que a maquina produz entra no repositorio.
+.venv/
+__pycache__/
+*.pyc
+config.json          # tem o e-mail de quem usa; cada um faz o seu
+historico.csv
+coletas/
+antecedencia.csv
+antecedencia_bloco.html
+*.log
+launchd.out
+launchd.err
+ultimo_parecer.*
+ultimo_boletim.txt
+ultima_rodada_ok.txt
+ultimo_assunto.txt
+.DS_Store

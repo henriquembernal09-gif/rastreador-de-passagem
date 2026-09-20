@@ -1,0 +1,78 @@
+{
+  "_": "MODELO. Copie para config.json (cp config.exemplo.json config.json) e edite. Tudo que comeca com _ e' comentario e e' ignorado pelo programa.",
+
+  "_rotulo": "Apelido da viagem, so' minusculas, numeros e hifen. Vira o nome do agendamento no sistema.",
+  "rotulo": "recife-janeiro",
+
+  "_rota": "Codigos IATA de 3 letras. SAO = qualquer aeroporto de Sao Paulo; GRU = so' Guarulhos. RIO/GIG, SSA, REC, MCO, LIS, JFK...",
+  "origem": "SAO",
+  "destino": "REC",
+
+  "adultos": 1,
+  "classe": "economy",
+  "_max_escalas": "0 = so' voo direto. 1 = aceita uma conexao. Use 0 quando direto existir: escala muda a viagem, nao so' o preco.",
+  "max_escalas": 0,
+  "moeda": "BRL",
+  "_fuso": "Fuso de casa. O programa usa isto para ler a hora do voo e a hora do boletim, mesmo que a maquina rode em UTC.",
+  "fuso": "America/Sao_Paulo",
+  "min_voos": 6,
+
+  "_combos": "Cada combo e' UMA viagem vigiada. Duas datas diferentes = dois combos. Se a viagem e' ida e volta na mesma reserva, preencha 'volta' -- e' o preco da VIAGEM que decide a compra, nao o do trecho.",
+  "combos": [
+    {
+      "id": "16a20jan-latam",
+      "rotulo": "16→20/jan · LATAM, direto, ida à tarde e volta de manhã",
+      "ida": "2027-01-16",
+      "volta": "2027-01-20",
+      "_mesma_cia": "true rejeita o par com ida de uma companhia e volta de outra: isso e' duas passagens com cara de uma.",
+      "mesma_cia": true,
+      "janela_ida": {
+        "_": "modo aceita any, after, before ou between. 'partida' filtra a hora de sair; 'chegada' filtra a de pousar.",
+        "partida": { "modo": "between", "hora_min": "12:00", "hora_max": "19:00" },
+        "_cias": "Lista de companhias aceitas. Tire o campo para aceitar qualquer uma.",
+        "cias": ["LATAM"]
+      },
+      "janela_volta": {
+        "partida": { "modo": "between", "hora_min": "05:00", "hora_max": "12:00" },
+        "cias": ["LATAM"]
+      }
+    },
+    {
+      "id": "16a20jan-qualquer",
+      "rotulo": "16→20/jan · qualquer companhia, mesmas janelas",
+      "_": "O mesmo par de datas sem filtro de companhia. Serve para medir quanto custa a preferencia: se a diferenca for pequena, some. As duas versoes contam como UMA busca no Google -- o programa reaproveita a leitura.",
+      "ida": "2027-01-16",
+      "volta": "2027-01-20",
+      "mesma_cia": true,
+      "janela_ida": { "partida": { "modo": "between", "hora_min": "12:00", "hora_max": "19:00" } },
+      "janela_volta": { "partida": { "modo": "between", "hora_min": "05:00", "hora_max": "12:00" } }
+    }
+  ],
+
+  "_so_ida": "Para viagem so' de ida, tire 'volta' e 'janela_volta'. Ai da' para filtrar tambem chegada e duracao: 'chegada': {'modo':'before','hora':'19:00','offset_dia':0} e 'duracao_max_horas': 9. Sem duracao_max_horas, um voo que para 7h no meio do caminho passa pela janela de chegada como se fosse direto.",
+
+  "_email_destino": "Para quem vao o boletim e o alerta. Pode ter mais de um, separados por virgula.",
+  "email_destino": "seu-email@exemplo.com",
+
+  "_boletim": "O relatorio tranquilo: chega no horario, voce le quando quiser. 2x por dia e' o suficiente -- coletar de 30 em 30 min e mandar e-mail a cada coleta vira ruido e voce para de ler.",
+  "boletim": { "ativo": true, "horarios": ["08:45", "18:45"] },
+
+  "_alerta": "A interrupcao: so' dispara em queda grande contra a leitura anterior. 15% e' o padrao; suba para 20% se estiver disparando por oscilacao normal. silencio_horas evita repetir o mesmo aviso. piso: null, ou um preco abaixo do qual voce quer ser avisado sempre.",
+  "alerta": { "ativo": true, "queda_pct": 15, "reforco_pct": 5, "silencio_horas": 12, "piso": null },
+
+  "_cadencia": "De quanto em quanto tempo coletar. 30 min e' o equilibrio: pega queda relampago sem chamar atencao do Google. Alternativa: apagar este campo e usar 'horarios': ['08:00','12:00','16:00','20:00'].",
+  "intervalo_minutos": 30,
+
+  "_rastreio_termina_em": "Data em que o rastreador se desinstala sozinho. Ponha alguns dias antes do voo, ou a data em que voce decide de qualquer jeito.",
+  "rastreio_termina_em": "2027-01-10",
+
+  "_max_idas_testadas": "So' vale para ida e volta: quantas opcoes de ida o coletor abre para descobrir o preco fechado com a volta. 8 cobre bem uma janela de tarde.",
+  "max_idas_testadas": 8,
+
+  "smtp": {
+    "_": "Caminho reserva, so' usado se o `claude` nao estiver disponivel. Deixe como esta se for usar o e-mail pelo Claude.",
+    "host": "smtp.gmail.com",
+    "porta": 587,
+    "remetente": ""
+  }
+}
